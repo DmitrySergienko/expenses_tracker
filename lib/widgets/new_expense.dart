@@ -16,20 +16,35 @@ class NewExpense extends StatefulWidget {
 
 class _NewExpenseState extends State<NewExpense> {
 
+  //to keep input value
+  var _entiredValue ='';
+
+  void _saveTitleInput(String inputValue){
+    _entiredValue = inputValue;
+  }
+
 
 
   @override
   Widget build(context) {
-    return const Padding(
-      padding: EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           TextField(
+            onChanged: _saveTitleInput,
             maxLength: 50,
             decoration: InputDecoration(
               label: Text('Title')
             ),
-          )
+          ),
+          Row(children: [
+            ElevatedButton(
+              onPressed: (){
+                print(_entiredValue);
+              },
+               child: const Text('Save Expense'))
+          ],),
         ],
       ),
     );
