@@ -10,6 +10,8 @@ class Expenses extends StatefulWidget {
   State<Expenses> createState() {
     return _ExpensesState();
   }
+
+  onPressed(){}
 }
 
 class _ExpensesState extends State<Expenses> {
@@ -29,6 +31,15 @@ class _ExpensesState extends State<Expenses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
+      //add appBar
+      appBar: AppBar(
+        title: const Text('Expense Tracker'),
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.add))
+        ],
+      ),
+
       body: Column(children: [
         const Text('Some text'),
         // to show list on the screen, the list should be inside Expanded() function
