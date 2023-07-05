@@ -1,5 +1,4 @@
 import 'package:expenses_tracker/models/expense.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -11,6 +10,8 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpenseState extends State<NewExpense> {
+
+
   final _titleController = TextEditingController();
   final _amount = TextEditingController();
   DateTime? _selectedDate;
@@ -37,6 +38,28 @@ class _NewExpenseState extends State<NewExpense> {
     _titleController.dispose();
     _amount.dispose();
     super.dispose();
+  }
+
+  void _saveExpenseActions(){
+
+    final entireAmount = double.tryParse(_amount.text);
+    final amountIsValid = entireAmount  == null || entireAmount <= 0;
+
+    //show error
+    if(_titleController.text.trim().isEmpty || amountIsValid || _selectedDate ==null){
+      showDialog(context: context, builder: (ctx)=>  AlertDialog(
+        title: const Text('Invalid Input'),
+        content:const Text('Please complete fields'),
+        actions: [
+          TextButton(
+            onPressed: (){
+              Navigator.pop(ctx);
+            },
+             child:  const Text('Ok'),),
+        ],
+      ));
+      return;
+    }
   }
 
   @override
@@ -111,7 +134,7 @@ class _NewExpenseState extends State<NewExpense> {
                   child: const Text('Clear')),
               ElevatedButton(
                   onPressed: () {
-                    print(_titleController);
+                    _saveExpenseActions();
                   },
                   child: const Text('Save Expense')),
             ],
@@ -119,5 +142,6 @@ class _NewExpenseState extends State<NewExpense> {
         ],
       ),
     );
+    
   }
 }
