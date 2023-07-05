@@ -10,47 +10,33 @@ class Expenses extends StatefulWidget {
   State<Expenses> createState() {
     return _ExpensesState();
   }
-
-  
 }
 
 class _ExpensesState extends State<Expenses> {
-  final List<Expense> _registredExpences = [
-    Expense(
-        title: 'Flutter course',
-        amount: 19.9,
-        date: DateTime.now(),
-        categoty: Category.leisure),
-    Expense(
-        title: 'Dummy exp',
-        amount: 19.9,
-        date: DateTime.now(),
-        categoty: Category.work),
-  ];
+  
+  final List<Expense> _registredExpences = [];
 
-  void _onActionPressed(){
+  void _onActionPressed() {
     showModalBottomSheet(
       context: context,
-       builder:  (cxt) => const NewExpense(),
-       );
+      builder: (cxt) => NewExpense(
+        onSave: (newExpense) {
+          setState(() {
+            _registredExpences.addAll(newExpense);
+          });
+        },
+      ),
+    );
   }
-
-
-
-  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       //add appBar
       appBar: AppBar(
         title: const Text('Expense Tracker'),
         actions: [
-          IconButton(
-            onPressed:  _onActionPressed,
-             icon: const Icon(Icons.add
-             ))
+          IconButton(onPressed: _onActionPressed, icon: const Icon(Icons.add))
         ],
       ),
 

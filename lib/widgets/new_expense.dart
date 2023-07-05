@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({Key? key}) : super(key: key);
 
+  const NewExpense({Key? key, required this.onSave}) : super(key: key);
+
+  //create a callback to pass the list of epence to the exspense.dart screen
+  final Function(List<Expense>) onSave;
+  
   @override
   _NewExpenseState createState() => _NewExpenseState();
 }
 
 class _NewExpenseState extends State<NewExpense> {
-
+  final List<Expense> listOfExpenses = [];
 
   final _titleController = TextEditingController();
   final _amount = TextEditingController();
@@ -40,27 +44,49 @@ class _NewExpenseState extends State<NewExpense> {
     super.dispose();
   }
 
-  void _saveExpenseActions(){
-
+  void _saveExpenseActions() {
     final entireAmount = double.tryParse(_amount.text);
-    final amountIsValid = entireAmount  == null || entireAmount <= 0;
+    final amountIsValid = entireAmount == null || entireAmount <= 0;
 
     //show error
-    if(_titleController.text.trim().isEmpty || amountIsValid || _selectedDate ==null){
-      showDialog(context: context, builder: (ctx)=>  AlertDialog(
-        title: const Text('Invalid Input'),
-        content:const Text('Please complete fields'),
-        actions: [
-          TextButton(
-            onPressed: (){
-              Navigator.pop(ctx);
-            },
-             child:  const Text('Ok'),),
-        ],
-      ));
+    if (_titleController.text.trim().isEmpty ||amountIsValid ||_selectedDate == null) {
+
+      showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+                title: const Text('Invalid Input'),
+                content: const Text('Please complete fields'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                    },
+                    child: const Text('Ok'),
+                  ),
+                ],
+              ));
       return;
     }
+    else{
+
+    // if all fields completed
+
+    //1.Add items to the list
+    listOfExpenses.add(
+      Expense(
+          categoty: _selectCategory,
+          title: _titleController.text.trim(),
+          amount: entireAmount,
+          date: _selectedDate!),
+    );
+
+    // Call the callback function passed from the parent widget
+    widget.onSave(listOfExpenses);
+
+    //2.Close the BottomDropDown screen
+    Navigator.pop(context);
   }
+}
 
   @override
   Widget build(context) {
@@ -109,7 +135,7 @@ class _NewExpenseState extends State<NewExpense> {
           Row(
             children: [
               DropdownButton(
-                value: _selectCategory,
+                  value: _selectCategory,
                   items: Category.values
                       .map(
                         (category) => DropdownMenuItem(
@@ -126,7 +152,7 @@ class _NewExpenseState extends State<NewExpense> {
                       _selectCategory = category;
                     });
                   }),
-                  const Spacer(),
+              const Spacer(),
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -142,6 +168,5 @@ class _NewExpenseState extends State<NewExpense> {
         ],
       ),
     );
-    
   }
 }
