@@ -18,6 +18,7 @@ class _ExpensesState extends State<Expenses> {
 
   void _onActionPressed() {
     showModalBottomSheet(
+      isScrollControlled: true, //to ocupade full screen 
       context: context,
       builder: (cxt) => NewExpense(
         onSave: (newExpense) {
