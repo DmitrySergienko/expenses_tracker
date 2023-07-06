@@ -13,7 +13,6 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-
   final List<Expense> _registredExpences = [];
 
   //remove item from the list
@@ -39,6 +38,16 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    //show message if no expenses
+    Widget mainContent = const Center(
+      child: Text('No expenses. Start adding some!'),
+    );
+
+    if (_registredExpences.isNotEmpty) {
+      mainContent = ExpensesList(
+          expenses: _registredExpences, onRemoveExpesnse: _removeExspense);
+    }
+
     return Scaffold(
       //add appBar
       appBar: AppBar(
@@ -52,7 +61,7 @@ class _ExpensesState extends State<Expenses> {
         const Text('Some text'),
         // to show list on the screen, the list should be inside Expanded() function
         Expanded(
-          child: ExpensesList(expenses: _registredExpences, onRemoveExpesnse: _removeExspense,),
+          child: mainContent,
         ),
       ]),
     );
