@@ -19,7 +19,7 @@ class ExpenseItem extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Colors.blue, Color.fromARGB(172, 222, 221, 221)],
+              colors: [Color.fromARGB(168, 33, 149, 243), Color.fromARGB(172, 222, 221, 221)],
             ),
             borderRadius: BorderRadius.circular(10),
           ),
