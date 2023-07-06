@@ -13,7 +13,20 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  final List<Expense> _registredExpences = [];
+  
+
+    final List<Expense> _registredExpences = [
+    Expense(
+        title: 'Flutter course',
+        amount: 19.9,
+        date: DateTime.now(),
+        categoty: Category.leisure),
+    Expense(
+        title: 'Dummy exp',
+        amount: 19.9,
+        date: DateTime.now(),
+        categoty: Category.work),
+  ];
 
   //remove item from the list
   void _removeExspense(Expense expense) {
