@@ -35,3 +35,27 @@ return formatter.format(date);
   }
 
 }
+
+// to get sum for each cutegory for charts
+class ExpenseBucket{
+  
+const ExpenseBucket({required this.category, required this.expenses});
+
+// is a named constructor that creates an ExpenseBucket where the expenses list only includes the expenses from allExpenses that match the specified category.
+ExpenseBucket.forCategory(List<Expense> allExpesnses, this.category)
+  :expenses = allExpesnses.where((item) => item.categoty == category).toList();
+
+
+  final Category category;
+  final List<Expense> expenses;
+
+
+  double get totalExpenses {
+    double sum = 0;
+    
+    for (final i in expenses){
+      sum = sum + i.amount;
+
+    } return sum;
+  }
+}

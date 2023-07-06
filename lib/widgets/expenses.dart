@@ -1,3 +1,4 @@
+import 'package:expenses_tracker/widgets/chart/chart.dart';
 import 'package:expenses_tracker/widgets/expenses_list.dart/expenses_list.dart';
 import 'package:expenses_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +87,9 @@ class _ExpensesState extends State<Expenses> {
       ),
 
       body: Column(children: [
-        const Text('Some text'),
+        Chart(expenses: _registredExpences),
+
+        const Text('Expenses List'),
         // to show list on the screen, the list should be inside Expanded() function
         Expanded(
           child: mainContent,

@@ -8,8 +8,11 @@ class ExpenseItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -19,7 +22,10 @@ class ExpenseItem extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color.fromARGB(168, 33, 149, 243), Color.fromARGB(172, 222, 221, 221)],
+              colors: [
+                Color.fromARGB(168, 33, 149, 243),
+                Color.fromARGB(172, 222, 221, 221)
+              ],
             ),
             borderRadius: BorderRadius.circular(10),
           ),
@@ -27,17 +33,41 @@ class ExpenseItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(expense.title,style: const TextStyle(color: Colors.white, fontSize: 18.0)),
+              Text(expense.title,
+                  style: const TextStyle(color: Colors.white, fontSize: 18.0)),
               const SizedBox(height: 4),
               Row(
                 children: [
-                  Text('\$${expense.amount.toStringAsFixed(2)}',style: const TextStyle(color: Colors.white, fontSize: 16.0)),
+                  Text('\$${expense.amount.toStringAsFixed(2)}',
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 16.0)),
                   const Spacer(),
-                  Row(children: [
-                    Icon(categoryIcons[expense.categoty], color: Colors.white,),
-                    const SizedBox(width: 8),
-                    Text(expense.formattedDate,style: const TextStyle(color: Colors.white, fontSize: 18.0))
-                  ],),
+                  Row(
+                    children: [
+                      Icon(
+                        categoryIcons[expense.categoty],
+                        color: isDarkMode
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.35),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        expense.formattedDate,
+                        style: TextStyle(
+                          color: isDarkMode 
+                           ? Theme.of(context).colorScheme.primary 
+                          : Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.35),
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ],
