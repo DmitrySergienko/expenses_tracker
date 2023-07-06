@@ -13,12 +13,19 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  
+
   final List<Expense> _registredExpences = [];
+
+  //remove item from the list
+  void _removeExspense(Expense expense) {
+    setState(() {
+      _registredExpences.remove(expense);
+    });
+  }
 
   void _onActionPressed() {
     showModalBottomSheet(
-      isScrollControlled: true, //to ocupade full screen 
+      isScrollControlled: true, //to ocupade full screen
       context: context,
       builder: (cxt) => NewExpense(
         onSave: (newExpense) {
@@ -45,7 +52,7 @@ class _ExpensesState extends State<Expenses> {
         const Text('Some text'),
         // to show list on the screen, the list should be inside Expanded() function
         Expanded(
-          child: ExpensesList(expenses: _registredExpences),
+          child: ExpensesList(expenses: _registredExpences, onRemoveExpesnse: _removeExspense,),
         ),
       ]),
     );
