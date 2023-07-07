@@ -51,6 +51,7 @@ class _ExpensesState extends State<Expenses> {
 
   void _onActionPressed() {
     showModalBottomSheet(
+      useSafeArea: true, // safe area not overlop the camera on top of the screen
       isScrollControlled: true, //to ocupade full screen
       context: context,
       builder: (cxt) => NewExpense(
@@ -79,18 +80,23 @@ class _ExpensesState extends State<Expenses> {
       //add appBar
       appBar: AppBar(
         title: Row(
-    children: [
-      Image.asset(
-        'assets/images/ic_banner_new.png',
-        fit: BoxFit.cover,
-        height: AppBar().preferredSize.height,
-      ),
-      SizedBox(width: 8.0), // you can adjust the space to suit your design
-      const Text('Expense tracker'),
-    ],
-  ),
+          children: [
+            Image.asset(
+              'assets/images/ic_banner_new.png',
+              fit: BoxFit.cover,
+              height: AppBar().preferredSize.height,
+            ),
+            const SizedBox(
+                width: 6.0), // in case adjust the space to suit design
+            const Text('Expense tracker'),
+          ],
+        ),
         actions: [
-          IconButton(onPressed: _onActionPressed, icon: const Icon(Icons.add),color: Color.fromARGB(255, 251, 101, 2),)
+          IconButton(
+            onPressed: _onActionPressed,
+            icon: const Icon(Icons.add),
+            color: const Color.fromARGB(255, 251, 101, 2),
+          )
         ],
       ),
 
@@ -98,7 +104,7 @@ class _ExpensesState extends State<Expenses> {
         Chart(expenses: _registredExpences),
 
         const Text('Expenses List'),
-        // to show list on the screen, the list should be inside Expanded() function
+        // to show list on the screen, the list should be inside Expanded() function beacuse no high limit in the list
         Expanded(
           child: mainContent,
         ),
