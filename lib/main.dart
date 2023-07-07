@@ -5,7 +5,7 @@ void main() {
 
   //add color scheme
   var kColorScheme = ColorScheme.fromSeed(
-    seedColor: Color.fromARGB(121, 5, 163, 220)
+    seedColor: const Color.fromARGB(121, 5, 163, 220)
     );
 
     //add Dark color scheme
@@ -20,17 +20,7 @@ void main() {
       darkTheme: ThemeData.dark().copyWith(
         useMaterial3: true,
          colorScheme: kDarkColorTheme,
-          //add card scheme
-        // cardTheme: CardTheme(
-        //   // Set any attributes of CardTheme you want here. 
-        //   // As an example, I'm setting color and shape here.
-        //   color: kDarkColorTheme.primaryContainer,
-        //   //margin: const EdgeInsets.symmetric(vertical: 8),
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.circular(10),
-        //   ),
-        // ),
-        
+                 
         //add button scheme for dark mode
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -42,16 +32,6 @@ void main() {
         useMaterial3: true,
         colorScheme: kColorScheme,
 
-        //add card scheme
-        // cardTheme: CardTheme(
-        //   // Set any attributes of CardTheme you want here. 
-        //   // As an example, I'm setting color and shape here.
-        //   color: Colors.blue,
-        //   //margin: const EdgeInsets.symmetric(vertical: 8),
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.circular(10),
-        //   ),
-        // ),
         //add button scheme
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

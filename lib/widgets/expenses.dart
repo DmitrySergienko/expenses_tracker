@@ -14,9 +14,7 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  
-
-    final List<Expense> _registredExpences = [
+  final List<Expense> _registredExpences = [
     Expense(
         title: 'Flutter course',
         amount: 19.9,
@@ -80,9 +78,19 @@ class _ExpensesState extends State<Expenses> {
     return Scaffold(
       //add appBar
       appBar: AppBar(
-        title: const Text('Expense Tracker'),
+        title: Row(
+    children: [
+      Image.asset(
+        'assets/images/ic_banner_new.png',
+        fit: BoxFit.cover,
+        height: AppBar().preferredSize.height,
+      ),
+      SizedBox(width: 8.0), // you can adjust the space to suit your design
+      const Text('Expense tracker'),
+    ],
+  ),
         actions: [
-          IconButton(onPressed: _onActionPressed, icon: const Icon(Icons.add))
+          IconButton(onPressed: _onActionPressed, icon: const Icon(Icons.add),color: Color.fromARGB(255, 251, 101, 2),)
         ],
       ),
 
@@ -95,6 +103,19 @@ class _ExpensesState extends State<Expenses> {
           child: mainContent,
         ),
       ]),
+
+      bottomNavigationBar: Container(
+        color: Colors.grey[200], //you can set color here
+        height: 50.0, //you can set a height
+        alignment: Alignment.center,
+        child: Text(
+          'Created by techcarrot',
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.grey[700],
+          ),
+        ),
+      ),
     );
   }
 }
