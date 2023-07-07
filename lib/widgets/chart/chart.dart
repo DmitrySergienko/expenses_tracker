@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import '../../models/expense.dart';
 import 'chart_bar.dart';
 
-
-
 class Chart extends StatelessWidget {
   const Chart({super.key, required this.expenses});
 
@@ -35,6 +33,7 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.symmetric(
@@ -45,11 +44,10 @@ class Chart extends StatelessWidget {
       height: 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        gradient: LinearGradient(
-          
+        gradient: const LinearGradient(
           colors: [
             Color.fromARGB(168, 33, 149, 243),
-             Color.fromARGB(172, 222, 221, 221)
+            Color.fromARGB(172, 222, 221, 221)
           ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
@@ -66,6 +64,7 @@ class Chart extends StatelessWidget {
                     fill: bucket.totalExpenses == 0
                         ? 0
                         : bucket.totalExpenses / maxTotalExpense,
+                        labelValue: '${bucket.totalExpenses}',
                   )
               ],
             ),
