@@ -1,16 +1,17 @@
-
 import 'package:flutter/material.dart';
-
 
 class ChartBar extends StatelessWidget {
   const ChartBar({
     Key? key,
-    required this.fill, required this.labelValue,
+    required this.fill,
+    required this.labelValue,
+    required this.categoryName,
   }) : super(key: key);
 
   final double fill;
 
   final String labelValue;
+  final String categoryName;
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +34,12 @@ class ChartBar extends StatelessWidget {
                     : Theme.of(context).colorScheme.primary.withOpacity(0.35),
               ),
               child: Center(
-                child: Text(
-                    labelValue,
-                    style: TextStyle(color: Colors.white),
-                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                  Text(labelValue, style: TextStyle(color: Colors.white)),
+                  Text(categoryName, style: TextStyle(color: Colors.white)),
+                ]),
               ),
             ),
           ),

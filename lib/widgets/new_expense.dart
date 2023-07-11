@@ -1,14 +1,16 @@
+import 'dart:io';
+
 import 'package:expenses_tracker/models/expense.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class NewExpense extends StatefulWidget {
-
   const NewExpense({Key? key, required this.onSave}) : super(key: key);
 
   //create a callback to pass the list of epence to the exspense.dart screen
   final Function(List<Expense>) onSave;
-  
+
   @override
   _NewExpenseState createState() => _NewExpenseState();
 }
@@ -44,13 +46,24 @@ class _NewExpenseState extends State<NewExpense> {
     super.dispose();
   }
 
-  void _saveExpenseActions() {
-    final entireAmount = double.tryParse(_amount.text);
-    final amountIsValid = entireAmount == null || entireAmount <= 0;
-
-    //show error
-    if (_titleController.text.trim().isEmpty ||amountIsValid ||_selectedDate == null) {
-
+  void _showDialog() {
+    if (Platform.isIOS) {
+      //show origianl ios dialog
+      showCupertinoDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+                title: const Text('Invalid Input'),
+                content: const Text('Please complete fields'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                    },
+                    child: const Text('Ok'),
+                  ),
+                ],
+              ));
+    } else {
       showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
@@ -65,28 +78,38 @@ class _NewExpenseState extends State<NewExpense> {
                   ),
                 ],
               ));
-      return;
     }
-    else{
-
-    // if all fields completed
-
-    //1.Add items to the list
-    listOfExpenses.add(
-      Expense(
-          categoty: _selectCategory,
-          title: _titleController.text.trim(),
-          amount: entireAmount,
-          date: _selectedDate!),
-    );
-
-    // Call the callback function passed from the parent widget
-    widget.onSave(listOfExpenses);
-
-    //2.Close the BottomDropDown screen
-    Navigator.pop(context);
   }
-}
+
+  void _saveExpenseActions() {
+    final entireAmount = double.tryParse(_amount.text);
+    final amountIsValid = entireAmount == null || entireAmount <= 0;
+
+    //show error
+    if (_titleController.text.trim().isEmpty ||
+        amountIsValid ||
+        _selectedDate == null) {
+      _showDialog();
+      return;
+    } else {
+      // if all fields completed
+
+      //1.Add items to the list
+      listOfExpenses.add(
+        Expense(
+            categoty: _selectCategory,
+            title: _titleController.text.trim(),
+            amount: entireAmount,
+            date: _selectedDate!),
+      );
+
+      // Call the callback function passed from the parent widget
+      widget.onSave(listOfExpenses);
+
+      //2.Close the BottomDropDown screen
+      Navigator.pop(context);
+    }
+  }
 
   @override
   Widget build(context) {
@@ -127,7 +150,7 @@ class _NewExpenseState extends State<NewExpense> {
                   IconButton(
                       onPressed: _datePicker,
                       icon: const Icon(Icons.calendar_month))
-                ],
+                ], 
               ))
             ],
           ),

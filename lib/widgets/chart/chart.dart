@@ -65,6 +65,7 @@ class Chart extends StatelessWidget {
                         ? 0
                         : bucket.totalExpenses / maxTotalExpense,
                         labelValue: '${bucket.totalExpenses}',
+                        categoryName: bucket.category.name,
                   )
               ],
             ),
