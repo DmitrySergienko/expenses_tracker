@@ -39,7 +39,13 @@ class ExpenseItem extends StatelessWidget {
               
               const SizedBox(height: 4),
 
-              Text(expense.categoty.name),
+              Text(expense.categoty.name, style: TextStyle(
+                          color: isDarkMode 
+                           ? Theme.of(context).colorScheme.primary 
+                          : Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.35),)),
               
               Row(
                 children: [

@@ -35,11 +35,20 @@ class ChartBar extends StatelessWidget {
               ),
               child: Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  Text(labelValue, style: TextStyle(color: Colors.white)),
-                  Text(categoryName, style: TextStyle(color: Colors.white)),
-                ]),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Spacer(),
+                      Text(labelValue, style: TextStyle(color: Colors.white)),
+                      const Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(categoryName,
+                              style: const TextStyle(color: Colors.white)),
+                        ],
+                      ),
+                      const Spacer(),
+                    ]),
               ),
             ),
           ),
